@@ -7,6 +7,6 @@ main = hspec $ do
   context "Day 1" $ do
     input <- runIO $ readFile "inputs/Day01.txt"
     specify "Part 1" $ do
-      reverseCaps input `shouldBe` "ELPMAS"
-    specify "Part 2" $ do
-      addBang input `shouldBe` "sample!"
+      let is = parseInstructions input
+      let (Position _ l) = followInstructions is
+      manhattanDistance l `shouldBe` 250
