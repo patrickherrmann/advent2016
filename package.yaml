@@ -1,0 +1,39 @@
+name: advent
+version: 0.1.0.0
+synopsis: Solutions for the Advent of Code 2016
+description: Please see README.md
+license: BSD3
+author: Patrick Herrmann
+maintainer: patrickwherrmann@gmail.com
+copyright: (c) 2016 Patrick Herrmann
+category: Misc
+
+github: patrickherrmann/advent2016
+
+default-extensions:
+  - NoImplicitPrelude
+  - LambdaCase
+  - GeneralizedNewtypeDeriving
+  - ViewPatterns
+  - BangPatterns
+  - DeriveGeneric
+  - OverloadedStrings
+
+ghc-options:
+  -Wall
+
+dependencies:
+  - base
+  - protolude
+  - text
+
+library:
+    source-dirs: src
+
+tests:
+  advent-test:
+    source-dirs: test
+    main: Spec.hs
+    dependencies:
+      - advent
+      - hspec
