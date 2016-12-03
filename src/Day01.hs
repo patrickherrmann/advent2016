@@ -30,18 +30,28 @@ start = Position N (0, 0)
 manhattanDistance :: (Int, Int) -> Int
 manhattanDistance (x, y) = abs x + abs y
 
-followInstructions :: [Instruction] -> Position
-followInstructions = foldl' followInstruction start
-
-followInstruction :: Position -> Instruction -> Position
-followInstruction (Position o (x, y)) (Instruction d n) = Position o' l'
+followInstruction :: Position -> Instruction -> [Position]
+followInstruction (Position o l@(x, y)) (Instruction d n) = Position o' <$> path
   where
     o' = turn d o
-    l' = case o' of
-      N -> (x, y + n)
-      W -> (x - n, y)
-      S -> (x, y - n)
-      E -> (x + n, y)
+    Just path = tailMay $ case o' of
+      N -> [(x, y') | y' <- [y..y + n]]
+      W -> [(x', y) | x' <- [x, x - 1..x - n]]
+      S -> [(x, y') | y' <- [y, y - 1..y - n]]
+      E -> [(x', y) | x' <- [x..x + n]]
+
+followInstructions :: [Instruction] -> [Position]
+followInstructions is = concat ps
+  where
+    ps = [start] : zipWith continue ps is
+    continue path = followInstruction l
+      where
+        Just l = lastMay path
+
+firstDup :: Eq a => [a] -> a
+firstDup (a:as)
+  | a `elem` as = a
+  | otherwise = firstDup as
 
 turn :: TurnDirection -> Orientation -> Orientation
 turn L = \case
