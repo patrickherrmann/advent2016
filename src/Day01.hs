@@ -31,7 +31,7 @@ manhattanDistance :: (Int, Int) -> Int
 manhattanDistance (x, y) = abs x + abs y
 
 followInstruction :: Position -> Instruction -> [Position]
-followInstruction (Position o l@(x, y)) (Instruction d n) = Position o' <$> path
+followInstruction (Position o (x, y)) (Instruction d n) = Position o' <$> path
   where
     o' = turn d o
     Just path = tailMay $ case o' of

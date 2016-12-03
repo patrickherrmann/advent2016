@@ -18,9 +18,11 @@ default-extensions:
   - BangPatterns
   - DeriveGeneric
   - OverloadedStrings
+  - FlexibleContexts
 
 ghc-options:
   -Wall
+  -Wno-incomplete-patterns
 
 dependencies:
   - base

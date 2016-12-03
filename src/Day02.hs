@@ -2,7 +2,6 @@ module Day02 where
 
 import Protolude
 import qualified Data.Text as Text
-import Data.Char
 
 data Direction
   = U

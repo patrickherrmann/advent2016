@@ -2,6 +2,7 @@ import Protolude
 import Test.Hspec
 import Day01
 import Day02
+import Day03
 
 main :: IO ()
 main = hspec $ do
@@ -26,3 +27,10 @@ main = hspec $ do
     specify "Part 2" $ do
       let code = findCode moveDirection2 lines
       code `shouldBe` "B3DB8"
+
+  context "Day 3" $ do
+    input <- runIO $ readFile "inputs/Day03.txt"
+    let ts = parseDay03 input
+    specify "Part 1" $ do
+      let count = length $ filter isValidTriangle ts
+      count `shouldBe` 917
