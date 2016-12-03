@@ -65,8 +65,8 @@ turn R = \case
   S -> W
   W -> N
 
-parseInstructions :: Text -> [Instruction]
-parseInstructions t = is
+parseDay01 :: Text -> [Instruction]
+parseDay01 t = is
   where
     Right is = parse (instructions <* eof) "" t
     instructions :: Parser [Instruction]
