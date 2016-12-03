@@ -10,17 +10,17 @@ data Direction
   | R
   deriving (Show)
 
-findCode :: [[Direction]] -> [Int]
-findCode lines = digits
+findCode1 :: [[Direction]] -> [Int]
+findCode1 lines = digits
   where
-    digits = zipWith followDirections seeds lines
+    digits = zipWith followDirections1 seeds lines
     seeds = 5 : digits
 
-followDirections :: Int -> [Direction] -> Int
-followDirections = foldl' (flip moveDirection)
+followDirections1 :: Int -> [Direction] -> Int
+followDirections1 = foldl' (flip moveDirection1)
 
-moveDirection :: Direction -> Int -> Int
-moveDirection = \case
+moveDirection1 :: Direction -> Int -> Int
+moveDirection1 = \case
   U -> \case
     1 -> 1
     2 -> 2

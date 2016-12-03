@@ -21,5 +21,6 @@ main = hspec $ do
       input <- runIO $ readFile "inputs/Day02.txt"
       let lines = parseDay02 input
       specify "Part 1" $ do
-        let code = findCode lines
-        code `shouldBe` [1, 2, 3]
+        let code = findCode1 lines
+        code `shouldBe` [8,2,9,5,8]
+      
