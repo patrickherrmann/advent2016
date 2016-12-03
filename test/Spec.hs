@@ -17,10 +17,12 @@ main = hspec $ do
       let ls = map (\(Position _ l) -> l) ps
       manhattanDistance (firstDup ls) `shouldBe` 151
 
-    context "Day 2" $ do
-      input <- runIO $ readFile "inputs/Day02.txt"
-      let lines = parseDay02 input
-      specify "Part 1" $ do
-        let code = findCode1 lines
-        code `shouldBe` [8,2,9,5,8]
-      
+  context "Day 2" $ do
+    input <- runIO $ readFile "inputs/Day02.txt"
+    let lines = parseDay02 input
+    specify "Part 1" $ do
+      let code = findCode moveDirection1 lines
+      code `shouldBe` "82958"
+    specify "Part 2" $ do
+      let code = findCode moveDirection2 lines
+      code `shouldBe` "B3DB8"
