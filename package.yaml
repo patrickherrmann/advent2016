@@ -33,6 +33,7 @@ library:
     source-dirs: src
     dependencies:
       - megaparsec
+      - split
 
 tests:
   advent-test:

@@ -32,5 +32,7 @@ main = hspec $ do
     input <- runIO $ readFile "inputs/Day03.txt"
     let ts = parseDay03 input
     specify "Part 1" $ do
-      let count = length $ filter isValidTriangle ts
-      count `shouldBe` 917
+      triangleCount ts `shouldBe` 917
+    specify "Part 2" $ do
+      let ts' = transformInput ts
+      triangleCount ts' `shouldBe` 1649
