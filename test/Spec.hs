@@ -3,6 +3,7 @@ import Test.Hspec
 import Day01
 import Day02
 import Day03
+import Day04
 
 main :: IO ()
 main = hspec $ do
@@ -36,3 +37,9 @@ main = hspec $ do
     specify "Part 2" $ do
       let ts' = transformInput ts
       triangleCount ts' `shouldBe` 1649
+
+  context "Day 4" $ do
+    input <- runIO $ readFile "inputs/Day04.txt"
+    let rs = parseDay04 input
+    specify "Part 1" $ do
+      sectorIdSum rs `shouldBe` 409147

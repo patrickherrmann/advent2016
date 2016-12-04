@@ -3,6 +3,7 @@ module Day01 where
 import Protolude
 import Text.Megaparsec
 import Text.Megaparsec.Text
+import Prelude (read, last)
 
 data Instruction
   = Instruction TurnDirection Int
@@ -44,9 +45,7 @@ followInstructions :: [Instruction] -> [Position]
 followInstructions is = concat ps
   where
     ps = [start] : zipWith continue ps is
-    continue path = followInstruction l
-      where
-        Just l = lastMay path
+    continue path = followInstruction (last path)
 
 firstDup :: Eq a => [a] -> a
 firstDup (a:as)
@@ -68,12 +67,9 @@ turn R = \case
 parseDay01 :: Text -> [Instruction]
 parseDay01 t = is
   where
-    Right is = parse (instructions <* eof) "" t
-    instructions :: Parser [Instruction]
-    instructions = instruction `sepBy` (char ',' *> char ' ')
-    instruction = Instruction <$> turnDirection <*> amount
-    turnDirection = (char 'R' *> pure R) <|> (char 'L' *> pure L)
-    amount = do
-      ds <- some digitChar
-      let Just a = readMaybe ds
-      return a
+    Right is = parse (instructionsP <* eof) "" t
+    instructionsP :: Parser [Instruction]
+    instructionsP = instructionP `sepBy` (char ',' *> char ' ')
+    instructionP = Instruction <$> turnDirectionP <*> amountP
+    turnDirectionP = (char 'R' *> pure R) <|> (char 'L' *> pure L)
+    amountP = read <$> some digitChar

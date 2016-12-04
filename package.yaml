@@ -23,6 +23,7 @@ default-extensions:
 ghc-options:
   -Wall
   -Wno-incomplete-patterns
+  -Wno-unused-do-bind
 
 dependencies:
   - base
