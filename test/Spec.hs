@@ -43,3 +43,7 @@ main = hspec $ do
     let rs = parseDay04 input
     specify "Part 1" $ do
       sectorIdSum rs `shouldBe` 409147
+    specify "Part 2" $ do
+      let rs' = map decryptRoom rs
+      let Just room = find (\r -> "northpole" `elem` roomName r) rs'
+      sectorId room `shouldBe` 991
