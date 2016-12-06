@@ -5,6 +5,7 @@ import Day02
 import Day03
 import Day04
 import Day05
+import Day06
 
 main :: IO ()
 main = hspec $ do
@@ -60,3 +61,10 @@ main = hspec $ do
       let ps = map getIndexAndChar ihs
       let pw = constructPassword ps
       pw `shouldBe` "999828ec"
+
+  context "Day 6" $ do
+    input <- runIO $ readFile "inputs/Day06.txt"
+    let cols = parseDay06 input
+    specify "Part 1" $ do
+      let message = decodeMessage cols
+      message `shouldBe` "afwlyyyq"
