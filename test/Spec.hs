@@ -4,6 +4,7 @@ import Day01
 import Day02
 import Day03
 import Day04
+import Day05
 
 main :: IO ()
 main = hspec $ do
@@ -47,3 +48,11 @@ main = hspec $ do
       let rs' = map decryptRoom rs
       let Just room = find (\r -> "northpole" `elem` roomName r) rs'
       sectorId room `shouldBe` 991
+
+  context "Day 5" $ do
+    input <- runIO $ readFile "inputs/Day05.txt"
+    let code = parseDay05 input
+    specify "Part 1" $ do
+      let ihs = take 8 $ interestingHashes code
+      let pw = map (getPasswordChar . snd) ihs
+      pw `shouldBe` "f77a0e6e"

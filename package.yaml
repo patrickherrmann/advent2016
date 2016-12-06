@@ -27,6 +27,7 @@ ghc-options:
 
 dependencies:
   - base
+  - bytestring
   - protolude
   - text
 
@@ -35,6 +36,8 @@ library:
     dependencies:
       - megaparsec
       - split
+      - cryptohash
+      - base16-bytestring
 
 tests:
   advent-test:
