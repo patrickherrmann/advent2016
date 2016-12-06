@@ -66,5 +66,8 @@ main = hspec $ do
     input <- runIO $ readFile "inputs/Day06.txt"
     let cols = parseDay06 input
     specify "Part 1" $ do
-      let message = decodeMessage cols
+      let message = decodeMessage1 cols
       message `shouldBe` "afwlyyyq"
+    specify "Part 2" $ do
+      let message = decodeMessage2 cols
+      message `shouldBe` "bhkzekao"
