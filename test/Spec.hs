@@ -52,7 +52,11 @@ main = hspec $ do
   context "Day 5" $ do
     input <- runIO $ readFile "inputs/Day05.txt"
     let code = parseDay05 input
+    let ihs = interestingHashes code
     specify "Part 1" $ do
-      let ihs = take 8 $ interestingHashes code
-      let pw = map (getPasswordChar . snd) ihs
+      let pw = take 8 $ map getPasswordChar ihs
       pw `shouldBe` "f77a0e6e"
+    specify "Part 2" $ do
+      let ps = map getIndexAndChar ihs
+      let pw = constructPassword ps
+      pw `shouldBe` "999828ec"
