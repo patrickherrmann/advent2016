@@ -6,6 +6,7 @@ import Day03
 import Day04
 import Day05
 import Day06
+import Day07
 
 main :: IO ()
 main = hspec $ do
@@ -71,3 +72,10 @@ main = hspec $ do
     specify "Part 2" $ do
       let message = decodeMessage2 cols
       message `shouldBe` "bhkzekao"
+
+  context "Day 7" $ do
+    input <- runIO $ readFile "inputs/Day07.txt"
+    let ips = parseDay07 input
+    specify "Part 1" $ do
+      let tlsIps = filter supportsTls ips
+      length tlsIps `shouldBe` 110
