@@ -79,3 +79,6 @@ main = hspec $ do
     specify "Part 1" $ do
       let tlsIps = filter supportsTls ips
       length tlsIps `shouldBe` 110
+    specify "Part 2" $ do
+      let sslIps = filter supportsSsl ips
+      length sslIps `shouldBe` 242

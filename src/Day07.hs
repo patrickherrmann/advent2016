@@ -4,6 +4,7 @@ import Protolude hiding (try)
 import Text.Megaparsec
 import Text.Megaparsec.Text
 import qualified Data.Text as Text
+import Data.List (nub)
 
 data IpSequence
   = SupernetSequence Text
@@ -28,6 +29,25 @@ containsAbba = any (isAbba . toS) . Text.tails
     isAbba :: [Char] -> Bool
     isAbba (a:b:c:d:_) = a == d && b == c && a /= b
     isAbba _ = False
+
+supportsSsl :: IpAddress -> Bool
+supportsSsl ip = any ((`elem` hypernetsAbas) . invertAba) supernetAbas
+  where
+    hypernetsAbas = nub $ ip >>= \case
+      SupernetSequence _ -> []
+      HypernetSequence t -> findAbas t
+    supernetAbas = nub $ ip >>= \case
+      SupernetSequence t -> findAbas t
+      HypernetSequence _ -> []
+
+findAbas :: Text -> [[Char]]
+findAbas = filter isAba . map (take 3 . toS) . Text.tails
+  where
+    isAba (a:b:c:[]) = a == c && a /= b
+    isAba _ = False
+
+invertAba :: [Char] -> [Char]
+invertAba (a:b:_) = [b, a, b]
 
 parseDay07 :: Text -> [IpAddress]
 parseDay07 t = ips
