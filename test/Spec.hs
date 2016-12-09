@@ -1,5 +1,6 @@
 import Protolude
 import Test.Hspec
+import qualified Data.Text as Text
 import Day01
 import Day02
 import Day03
@@ -8,6 +9,7 @@ import Day05
 import Day06
 import Day07
 import Day08
+import Day09
 
 main :: IO ()
 main = hspec $ do
@@ -99,3 +101,10 @@ main = hspec $ do
             \#..#. #.... #.... #.... #.... #..#. ..#.. #.... #..#. ...#.\n\
             \.##.. #.... ####. ####. ####. .##.. ..#.. #.... .##.. ###..\n"
       displayGrid g `shouldBe` expectedGrid
+
+  context "Day 9" $ do
+    input <- runIO $ readFile "inputs/Day09.txt"
+    specify "Part 1" $ do
+      Text.length (decompress1 input) `shouldBe` 74532
+    specify "Part 2" $ do
+      decompress2 input `shouldBe` 11558231665
