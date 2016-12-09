@@ -7,6 +7,7 @@ import Day04
 import Day05
 import Day06
 import Day07
+import Day08
 
 main :: IO ()
 main = hspec $ do
@@ -82,3 +83,10 @@ main = hspec $ do
     specify "Part 2" $ do
       let sslIps = filter supportsSsl ips
       length sslIps `shouldBe` 242
+
+  context "Day 8" $ do
+    input <- runIO $ readFile "inputs/Day08.txt"
+    let is = parseDay08 input
+    specify "Part 1" $ do
+      let voltage = runInstructions is
+      voltage `shouldBe` 106

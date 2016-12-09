@@ -34,10 +34,11 @@ dependencies:
 library:
     source-dirs: src
     dependencies:
+      - array
+      - base16-bytestring
+      - cryptohash
       - megaparsec
       - split
-      - cryptohash
-      - base16-bytestring
 
 tests:
   advent-test:
