@@ -87,6 +87,15 @@ main = hspec $ do
   context "Day 8" $ do
     input <- runIO $ readFile "inputs/Day08.txt"
     let is = parseDay08 input
+    let g = runInstructions is
     specify "Part 1" $ do
-      let voltage = runInstructions is
-      voltage `shouldBe` 106
+      measureVoltage g `shouldBe` 106
+    specify "Part 2" $ do
+      let expectedGrid = 
+            ".##.. ####. #.... ####. #.... .##.. #...# ####. .##.. .###.\n\
+            \#..#. #.... #.... #.... #.... #..#. #...# #.... #..#. #....\n\
+            \#.... ###.. #.... ###.. #.... #..#. .#.#. ###.. #.... #....\n\
+            \#.... #.... #.... #.... #.... #..#. ..#.. #.... #.... .##..\n\
+            \#..#. #.... #.... #.... #.... #..#. ..#.. #.... #..#. ...#.\n\
+            \.##.. #.... ####. ####. ####. .##.. ..#.. #.... .##.. ###..\n"
+      displayGrid g `shouldBe` expectedGrid

@@ -6,8 +6,12 @@ import Text.Megaparsec
 import Text.Megaparsec.Text
 import Data.Array.MArray
 import Data.Array.ST
+import Data.Array.Unboxed
+import Data.List.Split (chunksOf)
+import qualified Data.Text as Text
 
-type Grid s = STUArray s Coord Bool
+type MutableGrid s = STUArray s Coord Bool
+type Grid = UArray Coord Bool
 
 type Coord = (Int, Int)
 
@@ -17,17 +21,29 @@ data Instruction
   | RotateCol Int Int
   deriving (Show)
 
-runInstructions :: [Instruction] -> Int
-runInstructions is = runST $ do
-  g <- emptyGrid
+measureVoltage :: Grid -> Int
+measureVoltage = length . filter identity . elems
+
+displayGrid :: Grid -> Text
+displayGrid g = Text.unlines $ map (toS . formatLine) lines
+  where
+    formatLine = intercalate " " . chunksOf 5
+    lines = transpose $ chunksOf 6 pixels
+    pixels = displayPixel <$> elems g
+    displayPixel = \case
+      True -> '#'
+      False -> '.'
+
+runInstructions :: [Instruction] -> Grid
+runInstructions is = runSTUArray $ do
+  g <- emptyMutableGrid
   traverse (followInstruction g) is
-  es <- getElems g
-  return $ length (filter identity es)
+  return g
 
-emptyGrid :: ST s (Grid s)
-emptyGrid = newArray ((0, 0), (49, 5)) False
+emptyMutableGrid :: ST s (MutableGrid s)
+emptyMutableGrid = newArray ((0, 0), (49, 5)) False
 
-followInstruction :: Grid s -> Instruction -> ST s ()
+followInstruction :: MutableGrid s -> Instruction -> ST s ()
 followInstruction g = \case
   Rect x y -> do
     let coords = [(a, b) | a <- [0..x-1], b <- [0..y-1]]
