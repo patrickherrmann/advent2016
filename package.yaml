@@ -30,6 +30,7 @@ dependencies:
   - bytestring
   - protolude
   - text
+  - multimap
 
 library:
     source-dirs: src
@@ -39,7 +40,6 @@ library:
       - containers
       - cryptohash
       - megaparsec
-      - multimap
       - lens
       - split
       - vector

@@ -1,6 +1,7 @@
 import Protolude
 import Test.Hspec
 import qualified Data.Text as Text
+import qualified Data.MultiMap as MMap
 import Day01
 import Day02
 import Day03
@@ -119,3 +120,7 @@ main = hspec $ do
       let correctComparison (botId, lo, hi) = lo == 17 && hi == 61
       let Just (botId, _, _) = find correctComparison h
       botId `shouldBe` 157
+    specify "Part 2" $ do
+      let bs = _bins s
+      let vals = [0, 1, 2] >>= flip MMap.lookup bs
+      product vals `shouldBe` 1085
