@@ -36,9 +36,13 @@ library:
     dependencies:
       - array
       - base16-bytestring
+      - containers
       - cryptohash
       - megaparsec
+      - multimap
+      - lens
       - split
+      - vector
 
 tests:
   advent-test:

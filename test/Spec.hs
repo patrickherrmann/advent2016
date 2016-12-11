@@ -10,6 +10,7 @@ import Day06
 import Day07
 import Day08
 import Day09
+import Day10
 
 main :: IO ()
 main = hspec $ do
@@ -108,3 +109,13 @@ main = hspec $ do
       Text.length (decompress1 input) `shouldBe` 74532
     specify "Part 2" $ do
       decompress2 input `shouldBe` 11558231665
+
+  context "Day 10" $ do
+    input <- runIO $ readFile "inputs/Day10.txt"
+    let is = parseDay10 input
+    let s = runBotSimulation is
+    specify "Part 1" $ do
+      let h = _history s
+      let correctComparison (botId, lo, hi) = lo == 17 && hi == 61
+      let Just (botId, _, _) = find correctComparison h
+      botId `shouldBe` 157
